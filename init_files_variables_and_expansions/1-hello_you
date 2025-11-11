@@ -1,0 +1,3 @@
+#!/bin/bash
+user="${USER:-$(whoami)}"
+echo "hello $user"
