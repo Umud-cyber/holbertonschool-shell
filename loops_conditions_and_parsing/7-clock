@@ -1,17 +1,28 @@
 #!/usr/bin/env bash
-# Displays time from 0 to 12 hours and 1 to 59 minutes
-
+# First print all times in HH:MM, then print Hour s
 hour=0
-
 while [ $hour -le 12 ]
 do
   minute=1
-
   while [ $minute -le 59 ]
   do
-    echo "$hour:$minute"
+    printf "%02d:%02d\n" "$hour" "$minute"
+    minute=$((minute + 1))
+  done
+  hour=$((hour + 1))
+done
+hour=0
+while [ $hour -le 12 ]
+do
+  echo "Hour: $hour"
+
+  minute=1
+  while [ $minute -le 59 ]
+  do
+    echo "$minute"
     minute=$((minute + 1))
   done
 
   hour=$((hour + 1))
-done 
+done
+
