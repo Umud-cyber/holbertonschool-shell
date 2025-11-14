@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-#Task
-for i in *
-do 
+# Displays file names after the first dash
+for file in *
+do
   echo "${file#*-}"
 done
+
