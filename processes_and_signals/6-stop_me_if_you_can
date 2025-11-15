@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-# stops 4-to_infinity_and_beyond by removing its PID file
-rm -f /tmp/4-to_infinity_and_beyond.pid
-rm -f /var/run/4-to_infinity_and_beyond.pid 2>/dev/null
-
-
-
-
-
