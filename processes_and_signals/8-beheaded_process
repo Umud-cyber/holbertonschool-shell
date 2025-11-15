@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 #Task 4
-pkill -f 7-highlander
+if pgrep 2-highlander > /dev/null
+then
+    pkill 2-highlander  
+    echo "OK"          
+fi
+
 
 
