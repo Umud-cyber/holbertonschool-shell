@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
-# stop 4-to_infinity_and_beyond without kill/killall
+# stops the infinite process
+pkill -f 4-to_infinity_and_beyond
 
-PID=$(pgrep -f 4-to_infinity_and_beyond)
-
-if [ -n "$PID" ]; then
-    echo -e "\003" > /proc/"$PID"/fd/0
-fi
 
 
 
