@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
-#Task 4
-if pgrep 2-highlander > /dev/null
-then
-    pkill 2-highlander  
-    echo "OK"          
-fi
+# kills the 7-highlander process
+kill "$(pgrep 7-highlander)"
 
 
 
