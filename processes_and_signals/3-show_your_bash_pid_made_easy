@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#Task 3
+for pid in /proc/[0-9]*
+do
+    name=$(< "$pid/comm" 2>/dev/null)
+    case "$name" in
+        *bash*)
+            echo "$(basename "$pid") $name"
+            ;;
+    esac
+done
+
