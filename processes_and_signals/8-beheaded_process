@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# kills the 7-highlander process
-kill "$(pgrep 7-highlander)"
+#task
+pkill 7-highlander
 
 
 
