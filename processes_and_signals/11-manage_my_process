@@ -3,27 +3,20 @@
 PIDFILE=/var/run/my_process.pid
 case "$1" in
   start)
-    ./manage_my_process &
+    nohup ./manage_my_process >/dev/null 2>&1 &
     echo $! > "$PIDFILE"
     echo "manage_my_process started"
     ;;
   stop)
     if [ -f "$PIDFILE" ]; then
-      PID=$(cat "$PIDFILE")
-      if kill "$PID" 2>/dev/null; then
-        rm -f "$PIDFILE"
-      fi
+      kill "$(cat "$PIDFILE")" 2>/dev/null
+      rm -f "$PIDFILE"
     fi
     echo "manage_my_process stopped"
     ;;
   restart)
-    if [ -f "$PIDFILE" ]; then
-      PID=$(cat "$PIDFILE")
-      kill "$PID" 2>/dev/null
-      rm -f "$PIDFILE"
-    fi
-    ./manage_my_process &
-    echo $! > "$PIDFILE"
+    $0 stop
+    $0 start
     echo "manage_my_process restarted"
     ;;
   *)
@@ -31,3 +24,4 @@ case "$1" in
     exit 1
     ;;
 esac
+
