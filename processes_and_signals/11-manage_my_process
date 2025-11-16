@@ -9,14 +9,24 @@ case "$1" in
     ;;
   stop)
     if [ -f "$PIDFILE" ]; then
-      kill "$(cat "$PIDFILE")" 2>/dev/null
+      PID=$(cat "$PIDFILE")
+      kill "$PID" 2>/dev/null
+      sleep 1
+      if ps -p "$PID" > /dev/null 2>&1; then
+        kill -9 "$PID" 2>/dev/null
+      fi
       rm -f "$PIDFILE"
     fi
     echo "manage_my_process stopped"
     ;;
   restart)
     if [ -f "$PIDFILE" ]; then
-      kill "$(cat "$PIDFILE")" 2>/dev/null
+      PID=$(cat "$PIDFILE")
+      kill "$PID" 2>/dev/null
+      sleep 1
+      if ps -p "$PID" > /dev/null 2>&1; then
+        kill -9 "$PID" 2>/dev/null
+      fi
       rm -f "$PIDFILE"
     fi
     nohup ./manage_my_process >/dev/null 2>&1 &
@@ -28,5 +38,6 @@ case "$1" in
     exit 1
     ;;
 esac
+
 
 
