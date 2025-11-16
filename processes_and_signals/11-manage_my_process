@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Task
+#task
 PIDFILE=/var/run/my_process.pid
 case "$1" in
   start)
@@ -15,8 +15,12 @@ case "$1" in
     echo "manage_my_process stopped"
     ;;
   restart)
-    $0 stop
-    $0 start
+    if [ -f "$PIDFILE" ]; then
+      kill "$(cat "$PIDFILE")" 2>/dev/null
+      rm -f "$PIDFILE"
+    fi
+    nohup ./manage_my_process >/dev/null 2>&1 &
+    echo $! > "$PIDFILE"
     echo "manage_my_process restarted"
     ;;
   *)
@@ -24,4 +28,5 @@ case "$1" in
     exit 1
     ;;
 esac
+
 
