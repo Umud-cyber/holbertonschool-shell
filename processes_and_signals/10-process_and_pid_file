@@ -1,12 +1,29 @@
 #!/usr/bin/env bash
-#Task
-PID_FILE="/var/run/myscript.pid"
-echo "$$" > "$PID_FILE"
-trap 'echo "I hate the kill command"; rm -f "$PID_FILE"; exit 0' SIGTERM
-trap 'echo "Y u no love me??"' SIGINT
-trap 'rm -f "$PID_FILE"; exit 0' SIGQUIT
-while true; do
-  echo "To infinity and beyond"
-  sleep 2
-done
+# This script writes its PID to a file, handles signals, and prints messages
 
+PID_FILE="/tmp/myscript.pid"
+
+# Write PID immediately
+echo $$ > "$PID_FILE"
+
+# Handle SIGTERM
+sigterm_message() {
+    echo "I hate the kill command"
+    rm -f "$PID_FILE"
+    exit 0
+}
+
+# Handle SIGQUIT
+sigquit_cleanup() {
+    rm -f "$PID_FILE"
+    exit 0
+}
+
+trap sigterm_message SIGTERM
+trap sigquit_cleanup SIGQUIT
+
+# Infinite loop
+while true; do
+    echo "To infinity and beyond"
+    sleep 1
+done
